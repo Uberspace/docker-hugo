@@ -1,0 +1,22 @@
+---
+
+image: docker
+
+services:
+  - docker:dind
+
+variables:
+  DOCKER_HOST: tcp://docker:2375/
+  IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+
+before_script:
+  - docker info
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+
+deploy-image:
+  stage: build
+  tags:
+    - cloud
+  script:
+    - docker build --tag $IMAGE_TAG .
+    - docker push $IMAGE_TAG

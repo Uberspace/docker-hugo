@@ -9,6 +9,11 @@ import os
 import invoke
 
 
+def get_image_name(ctx):
+    """ Return full image name from context. """
+    return f"{ctx.docker.namespace}{ctx.docker.image}"
+
+
 @invoke.task
 def clean(ctx):
     """ Clean example output. """
@@ -19,19 +24,21 @@ def clean(ctx):
 @invoke.task
 def build(ctx, cache=True):
     """ Build local image. """
+    image = get_image_name(ctx)
     cache = '' if cache else '--no-cache'
-    ctx.run(f"docker build {cache} --tag '{ctx.namespace}{ctx.image_name}' .")
+    ctx.run(f"docker build {cache} --tag '{image}' .")
 
 
-@invoke.task(build)
+@invoke.task(build, clean)
 def shell(ctx):
     """ Run a shell in the local image. """
+    image = get_image_name(ctx)
     ctx.run(
         (
             f"docker run --rm --interactive --tty --entrypoint /bin/sh"
             f' --mount type=bind,src="$(pwd)/example/input",dst=/input'
             f' --mount type=bind,src="$(pwd)/example/output",dst=/output'
-            f" '{ctx.namespace}{ctx.image_name}'"
+            f" '{image}'"
         ),
         pty=True,
     )
@@ -50,12 +57,13 @@ def run(ctx, command=''):
         e.g. `--buildDrafts`, `--buildExpired` or `--buildFuture`.
 
     """
+    image = get_image_name(ctx)
     ctx.run(
         (
             f"docker run --rm"
             f' --mount type=bind,src="$(pwd)/example/input",dst=/input,readonly'
             f' --mount type=bind,src="$(pwd)/example/output",dst=/output'
-            f" '{ctx.namespace}{ctx.image_name}' {command}"
+            f" '{image}' {command}"
         )
     )
 
@@ -75,7 +83,7 @@ def test(ctx, color=True):
 
 
 @invoke.task(run)
-def serve(ctx, port=8080):
+def server(ctx, port=8080):
     """ Serve the contents of `example/output/` on *port*. """
     server_address = ('', port)
     handler = http.server.SimpleHTTPRequestHandler
@@ -87,8 +95,10 @@ def serve(ctx, port=8080):
 
 namespace = invoke.Collection()
 namespace.configure({
-    'namespace': 'uberspace/homepage/',
-    'image_name': 'cms-engine',
+    'docker': {
+        'namespace': 'uberspace/homepage/',
+        'image': 'cms-engine',
+    },
     'run': {
         'echo': True,
     },
@@ -97,6 +107,6 @@ namespace.configure({
 namespace.add_task(build)
 namespace.add_task(clean)
 namespace.add_task(run)
-namespace.add_task(serve)
+namespace.add_task(server)
 namespace.add_task(shell)
 namespace.add_task(test)
