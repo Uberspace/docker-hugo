@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 invoke = "*"
+bumpversion = "*"
 
 [dev-packages]
 
