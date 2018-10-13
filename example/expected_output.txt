@@ -1,0 +1,32 @@
+example/output
+├── bpg
+│   └── cinemagraph-6.bpg
+├── categories
+│   ├── index.html
+│   └── index.xml
+├── js
+│   ├── bpgdec8a.js
+│   ├── bpgdec8.js
+│   ├── bpgdec.js
+│   ├── lazysizes.min.js
+│   └── smoothscroll.js
+├── page
+│   └── 1
+│       └── index.html
+├── posts
+│   ├── my-first-post
+│   │   └── index.html
+│   ├── page
+│   │   └── 1
+│   │       └── index.html
+│   ├── index.html
+│   └── index.xml
+├── tags
+│   ├── index.html
+│   └── index.xml
+├── 404.html
+├── index.html
+├── index.xml
+└── sitemap.xml
+
+10 directories, 19 files

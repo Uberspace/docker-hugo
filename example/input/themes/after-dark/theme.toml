@@ -1,0 +1,46 @@
+name = "After Dark"
+license = "WTFPL"
+licenselink = "https://github.com/comfusion/after-dark/blob/master/COPYING"
+description = "A robust, elegant dark theme for Hugo."
+homepage = "https://comfusion.github.io/after-dark/"
+tags = [
+  "minimalist",
+  "responsive",
+  "technical",
+  "accessible",
+  "terminal",
+  "custom themes",
+  "simple",
+  "dark"
+]
+features = [
+  "Mobile-optimized",
+  "SEO-optimized",
+  "Responsive Design",
+  "Flexbox Layouts",
+  "Google Analytics",
+  "Disqus",
+  "BPG Image Support",
+  "Lazyloading",
+  "OpenGraph",
+  "Schema Structured Data",
+  "Pagination",
+  "Reading time",
+  "Related content",
+  "Modification dating",
+  "Author byline",
+  "Word Count",
+  "Related Posts",
+  "Section Menu",
+  "Block Templates",
+  "Table of Contents",
+  "Custom Shortcodes",
+  "Keyboard Accessibility",
+  "Inclusive Design",
+  "Theme Variants"
+]
+min_version = 0.27
+
+[author]
+  name = "Josh Habdas"
+  homepage = "https://hackcabin.com"

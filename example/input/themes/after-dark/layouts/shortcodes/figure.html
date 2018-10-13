@@ -1,0 +1,52 @@
+<!--{{/*
+Like the Hugo built-in, but easier to grok with After Dark Intelligent
+Lazyloading, low-quality image placeholders, smaller caption text and
+a few other goodies.
+
+Basic usage:
+{{< figure src="https://i.supload.com/r1gXlwuXiZ.png" link="https://supload.com/r1gXlwuXiZ" caption="Ethereum value explosion in 2017. You do the math." >}}
+
+Internal usage reference:
+https://gohugo.io/content-management/shortcodes/#figure
+*/}}-->
+{{ $src := .Get "src" }}
+{{ $lqipsrc := .Get "lqipsrc" }}
+{{ $caption := .Get "caption" }}
+{{ $link := .Get "link" }}
+{{ $linktarget := .Get "linktarget" }}
+{{ $attr := .Get "attr" }}
+{{ $attrlink := .Get "attrlink" }}
+{{ $alt := .Get "alt" }}
+{{ $title := .Get "title" }}
+{{ $class := .Get "class" }}
+<figure{{ with $class }} class="{{ . }}"{{ end }}>
+  {{ with $link }}<a href="{{ . }}"{{ if $linktarget }} target="{{ $linktarget }}"{{ end }}{{ if eq $linktarget "_blank" }} rel="external noopener noreferrer"{{ end }}>{{ end }}
+    {{ if $lqipsrc }}
+      <img class="lazyload blur-up" src="{{ $lqipsrc }}" data-src="{{ $src }}" {{ if or $alt $caption }}alt="{{ with $alt }}{{ . }}{{ else }}{{ $caption }}{{ end }}"{{ end }} />
+    {{ else }}
+      <img class="lazyload" data-src="{{ $src }}" {{ if or $alt $caption }}alt="{{ with $alt }}{{ . }}{{ else }}{{ $caption }}{{ end }}"{{ end }} />
+    {{ end }}
+  {{ if $link }}</a>{{ end }}
+  {{ if or (or $title $caption) $attr }}
+  <figcaption>{{ if isset .Params "title" }}
+    <header><b>{{ $title }}</b></header>{{ end }}
+    {{ if or $caption $attr }}
+    <small>{{ $caption }}
+    {{ with $attrlink }}<a href="{{ . }}"> {{ end }}
+      {{ $attr }}
+    {{ if $attrlink }}</a> {{ end }}
+    </small>{{ end }}
+  </figcaption>
+  {{ end }}
+</figure>
+<style media="screen">
+  .blur-up {
+    -webkit-filter: blur(5px);
+    filter: blur(5px);
+    transition: filter 400ms, -webkit-filter 400ms;
+  }
+  .blur-up.lazyloaded {
+    -webkit-filter: blur(0);
+    filter: blur(0);
+  }
+</style>
