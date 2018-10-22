@@ -9,6 +9,7 @@ RUN set -ex; \
     ./hugo version
 
 FROM alpine
+RUN apk add --update --no-cache ca-certificates
 COPY --from=build /tmp/hugo /usr/local/bin/
 RUN set -ex; \
     addgroup -g 1000 hugo; \
