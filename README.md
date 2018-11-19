@@ -4,7 +4,7 @@ This is the docker image for the homepage's CMS engine build on [Hugo][].
 
 It can build the static files for the homepage.
 
-__VERSION__: `0.2.0`
+__VERSION__: `0.2.1`
 
 ## Usage
 
