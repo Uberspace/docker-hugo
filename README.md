@@ -13,6 +13,13 @@ Run this image with your _input_ and _output_ paths mounted:
 - It runs over all input files mounted at `/input`.
 - And writes the results to whatever is mounted at `/output`.
 
+```shell
+docker run --rm \
+  --mount type=bind,source="$(pwd)/example/input",destination=/input \
+  --mount type=bind,source="$(pwd)/example/output",destination=/output \
+  'registry.uberspace.is/uberspace/homepage/cms-engine'
+```
+
 ## Development
 
 If you're ready to release a new version run:
