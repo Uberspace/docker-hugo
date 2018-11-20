@@ -9,7 +9,6 @@ import invoke
 
 from . import docker
 from . import utils
-from . import net
 
 
 BASE_PATH = pathlib.Path(__file__).resolve().parents[1]
@@ -57,7 +56,7 @@ def shell(ctx, tag='', remote=False):
 	docker.shell(ctx)
 
 
-@invoke.task
+@invoke.task(build, run)
 def test(ctx, no_color=False):
 	""" Test the results of a previous `run`. """
 	color = '--color=never' if no_color else '--color=always'
@@ -74,12 +73,12 @@ def test(ctx, no_color=False):
 @invoke.task(run)
 def server(ctx, port=8080):
 	""" Serve the contents of `example/output/` on *port*. """
-	net.serve(ctx.docker.dst, port)
+	utils.serve(ctx.docker.dst, port)
 
 
 @invoke.task
 def login(ctx):
-	""" Log in to Docker  registry. """
+	""" Log in to Docker registry. """
 	ctx['docker']['remote'] = True
 	docker.login(ctx)
 
@@ -95,7 +94,7 @@ def pull(ctx, tag=''):
 
 @invoke.task
 def push(ctx, tag=''):
-	""" Pull image to registry. """
+	""" Push image to registry. """
 	ctx['docker']['remote'] = True
 	if tag:
 		ctx['docker']['tag'] = tag
@@ -122,9 +121,12 @@ namespace.configure({
 namespace.add_task(build)
 namespace.add_task(run)
 namespace.add_task(test)
-namespace.add_task(clean)
-namespace.add_task(shell)
-namespace.add_task(server)
+
+ns_tools = invoke.Collection('tools')
+ns_tools.add_task(clean)
+ns_tools.add_task(shell)
+ns_tools.add_task(server)
+namespace.add_collection(ns_tools)
 
 ns_remote = invoke.Collection('remote')
 ns_remote.add_task(login)

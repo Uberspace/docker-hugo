@@ -29,6 +29,7 @@ Options
 :src_to: mountpoint to use instead of `/input`
 :dst:  mount this absolute path at `/output`
 :dst_to: mountpoint to use instead of `/output`
+:envvars: dictionary of envvars to set (`None` values are taken from the environment)
 :shell: use this instead of the default (`/bin/sh`) if interactive
 :command: command to use instead of default, when run not interactively
 :extra: extra commandline arguments
@@ -37,8 +38,8 @@ Options
 Remote Registry
 ---------------
 
-Registry credentials can be stored in the environment like `INVOKE_DOCKER_USER`
-and `INVOKE_DOCKER_TOKEN`.
+Registry credentials can be stored in the config, or in the environment, like
+`INVOKE_DOCKER_USER` and `INVOKE_DOCKER_TOKEN`.
 
 :remote: use remote Docker registry
 :registry: name of the Docker registry (only used if `remote` is set)
@@ -56,9 +57,13 @@ Created
 import invoke
 
 
+TASK_KEY = 'task'
+GLOBAL_KEY = 'docker'
+
+
 #  CONFIGURATION
 
-def get_config(ctx, task_key='task', global_key='docker'):
+def get_config(ctx, task_key=TASK_KEY, global_key=GLOBAL_KEY):
 	""" Return configuration namespace for current task from *ctx*.
 
 	Use a global settings dictionary as base and update it with a task level
@@ -84,8 +89,6 @@ def get_config(ctx, task_key='task', global_key='docker'):
 	# return dictionary as Namespace–Object
 	return invoke.config.DataProxy.from_data(cfg)
 
-
-#  IMAGE & CONTAINER
 
 def get_image_name(cfg):
 	""" Return full image name (*remote*). """
@@ -126,6 +129,11 @@ def get_run_cmd(ctx, shell=False):
 		cmd.append(
 			f"--mount type=bind,source='{cfg.dst}',destination={dst_to}"
 		)
+	for key, value in cfg.get('envvars', {}).items():
+		if value is None:
+			cmd.append(f'--env {key.upper()}')
+		else:
+			cmd.append(f'--env {key.upper()}={value}')
 	if 'extra' in cfg:
 		cmd.append(cfg.extra)
 	cmd.append(f"'{cfg['image']}'")
@@ -138,7 +146,6 @@ def get_run_cmd(ctx, shell=False):
 
 def build(ctx):
 	""" Build  image from Dockerfile. """
-	login(ctx)
 	cfg = get_config(ctx)
 	cmd = ['docker build']
 	if cfg.get('no_cache'):
@@ -171,7 +178,9 @@ def login(ctx):
 		user = cfg.get('user')
 		token = cfg.get('token')
 		if not all((registry, user, token)):
-			raise invoke.exceptions.Exit(message='ERROR: missing credentials', code=1)
+			raise invoke.exceptions.Exit(
+				message='ERROR: missing credentials', code=1
+			)
 		ctx.run(
 			f"echo '{token}'"
 			f" | docker login --username '{user}' --password-stdin '{cfg.registry}'"
@@ -180,15 +189,15 @@ def login(ctx):
 
 def pull(ctx):
 	""" Pull image from registry. """
-	login(ctx)
 	cfg = get_config(ctx)
 	if cfg.get('remote'):
+		login(ctx)
 		ctx.run(f"docker pull '{cfg.image}'")
 
 
 def push(ctx):
 	""" Push image to registry. """
-	login(ctx)
 	cfg = get_config(ctx)
 	if cfg.get('remote'):
+		login(ctx)
 		ctx.run(f"docker push '{cfg.image}'")
