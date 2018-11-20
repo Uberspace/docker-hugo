@@ -14,8 +14,8 @@ RUN set -ex \
     && addgroup -g 1000 hugo \
     && adduser -u 1000 -G hugo -D hugo \
     && mkdir /input /output \
-    && chown hugo:hugo /input /output \
-    && ln -s /input /output /home/hugo/
+    && ln -s /input /output /home/hugo/ \
+    && chown hugo:hugo /input /output /home/hugo/input /home/hugo/output
 USER hugo:hugo
 WORKDIR /home/hugo
 ENTRYPOINT [ \
