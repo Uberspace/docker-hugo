@@ -6,7 +6,7 @@ It can build the static files for the homepage.
 
 __VERSION__: `0.2.2`
 
-## Usage
+## :children_crossing: Usage
 
 Run this image with your _input_ and _output_ paths mounted:
 
@@ -20,9 +20,10 @@ docker run --rm \
   'registry.uberspace.is/uberspace/homepage/cms-engine'
 ```
 
-## Development
+## :bookmark: Release
 
-If you're ready to release a new version run:
+If you're ready to release a new version, please run [bumpversion][] as a last
+step:
 
 ```shell
 pipenv run bumpversion [major|minor|patch]
@@ -30,3 +31,4 @@ git push --tags
 ```
 
 [Hugo]: https://gohugo.io
+[bumpversion]: https://github.com/peritus/bumpversion
