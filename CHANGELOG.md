@@ -7,7 +7,14 @@ and this project somewhat tries to adhere to [Semantic Versioning](https://semve
 
 ## [Unreleased]
 
-—
+### Changed
+
+— Update development tools.
+— Removed `.gitlab-ci.yaml` for now.
+
+###  Deprecated
+
+— Removed links from `/home/hugo/{input,output}` → `/{input,output}`
 
 ## [0.2.0] - 2018-10-22
 
