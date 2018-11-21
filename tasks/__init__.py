@@ -56,16 +56,23 @@ def shell(ctx, tag='', remote=False):
 	docker.shell(ctx)
 
 
-@invoke.task(build, run)
-def test(ctx, no_color=False):
+@invoke.task
+def test(ctx, tag='', remote=False, no_color=False):
 	""" Test the results of a previous `run`. """
+	if tag:
+		ctx['docker']['tag'] = tag
+	if remote:
+		ctx['docker']['remote'] = True
+	ctx['docker']['no_cache'] = True
+	build(ctx)
+	run(ctx)
 	color = '--color=never' if no_color else '--color=always'
 	res = ctx.run(
 		f'tree --dirsfirst example/output'
 		f' | diff {color} example/expected_output.txt -'
 	)
 	if res.ok:
-		raise invoke.exceptions.Exit(message='OKAY', code=0)
+		print('OKAY')
 	else:
 		raise invoke.exceptions.Exit(message='ERROR', code=1)
 
@@ -101,7 +108,20 @@ def push(ctx, tag=''):
 	docker.push(ctx)
 
 
+@invoke.task()
+def release(ctx, tag=''):
+	""" Release new image. """
+	ctx['docker']['remote'] = True
+	if tag:
+		ctx['docker']['tag'] = tag
+	test(ctx)
+	with ctx.cd(str(BASE_PATH / 'src')):
+		docker.build(ctx)
+	docker.push(ctx)
+
+
 namespace = invoke.Collection()
+
 namespace.configure({
 	'docker': {
 		'registry': 'registry.uberspace.is',
@@ -126,6 +146,7 @@ ns_tools = invoke.Collection('tools')
 ns_tools.add_task(clean)
 ns_tools.add_task(shell)
 ns_tools.add_task(server)
+ns_tools.add_task(release)
 namespace.add_collection(ns_tools)
 
 ns_remote = invoke.Collection('remote')
