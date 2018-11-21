@@ -21,21 +21,23 @@ def clean(ctx):
 
 
 @invoke.task
-def build(ctx, tag='', remote=False, no_cache=False):
+def build(ctx, remote=False, tag='', no_cache=False):
 	""" Build a local image. """
-	ctx['docker']['remote'] = remote
+	if remote:
+		ctx['docker']['remote'] = True
 	if tag:
 		ctx['docker']['tag'] = tag
 	if no_cache:
 		ctx['docker']['no_cache'] = True
-	with ctx.cd(str(BASE_PATH)):
+	with ctx.cd(str(BASE_PATH / 'src')):
 		docker.build(ctx)
 
 
 @invoke.task(clean)
-def run(ctx, command='', tag='', remote=False):
+def run(ctx, remote=False, command='', tag=''):
 	""" Run container over mounted `example/`. """
-	ctx['docker']['remote'] = remote
+	if remote:
+		ctx['docker']['remote'] = True
 	if tag:
 		ctx['docker']['tag'] = tag
 	if command:
@@ -44,29 +46,30 @@ def run(ctx, command='', tag='', remote=False):
 
 
 @invoke.task(clean)
-def shell(ctx, tag='', remote=False):
+def shell(ctx, remote=False, tag=''):
 	""" Run a shell in a container from the local image.
 
 		With the directories from `example/` mounted.
 
 	"""
-	ctx['docker']['remote'] = remote
+	if remote:
+		ctx['docker']['remote'] = True
 	if tag:
 		ctx['docker']['tag'] = tag
 	docker.shell(ctx)
 
 
 @invoke.task
-def test(ctx, tag='', remote=False, no_color=False):
+def test(ctx, remote=False, tag='', no_color=False):
 	""" Test the results of a previous `run`. """
-	if tag:
-		ctx['docker']['tag'] = tag
 	if remote:
 		ctx['docker']['remote'] = True
+	if tag:
+		ctx['docker']['tag'] = tag
 	ctx['docker']['no_cache'] = True
+	color = '--color=never' if no_color else '--color=always'
 	build(ctx)
 	run(ctx)
-	color = '--color=never' if no_color else '--color=always'
 	res = ctx.run(
 		f'tree --dirsfirst example/output'
 		f' | diff {color} example/expected_output.txt -'
@@ -111,13 +114,13 @@ def push(ctx, tag=''):
 @invoke.task()
 def release(ctx, tag=''):
 	""" Release new image. """
-	ctx['docker']['remote'] = True
 	if tag:
 		ctx['docker']['tag'] = tag
 	test(ctx)
-	with ctx.cd(str(BASE_PATH / 'src')):
-		docker.build(ctx)
-	docker.push(ctx)
+	ctx['docker']['remote'] = True
+	ctx['docker']['no_cache'] = True
+	build(ctx)
+	push(ctx)
 
 
 namespace = invoke.Collection()
