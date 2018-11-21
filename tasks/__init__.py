@@ -60,13 +60,14 @@ def shell(ctx, remote=False, tag=''):
 
 
 @invoke.task
-def test(ctx, remote=False, tag='', no_color=False):
+def test(ctx, remote=False, tag='', no_cache=False, no_color=False):
 	""" Test the results of a previous `run`. """
 	if remote:
 		ctx['docker']['remote'] = True
 	if tag:
 		ctx['docker']['tag'] = tag
-	ctx['docker']['no_cache'] = True
+	if no_cache:
+		ctx['docker']['no_cache'] = True
 	color = '--color=never' if no_color else '--color=always'
 	build(ctx)
 	run(ctx)

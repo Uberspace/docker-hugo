@@ -30,9 +30,10 @@ Options
 :dst:  mount this absolute path at `/output`
 :dst_to: mountpoint to use instead of `/output`
 :envvars: dictionary of envvars to set (`None` values are taken from the environment)
-:shell: use this instead of the default (`/bin/sh`) if interactive
-:command: command to use instead of default, when run not interactively
 :extra: extra commandline arguments
+:shell: use this instead of the default (`/bin/sh`) (shell only)
+:command: command to use instead of default (run only)
+:buildargs: use these (build only)
 :no_cache: don't use cache (build only)
 
 Remote Registry
@@ -150,6 +151,8 @@ def build(ctx):
 	cmd = ['docker build']
 	if cfg.get('no_cache'):
 		cmd.append('--no-cache')
+	for key, value in cfg.get('buildargs', {}).items():
+		cmd.append(f'--build-arg {key}={value}')
 	cmd.append(f"--tag '{cfg.image}' .")
 	ctx.run(' '.join(cmd))
 
