@@ -7,6 +7,10 @@ and this project somewhat tries to adhere to [Semantic Versioning](https://semve
 
 ## [Unreleased]
 
+### Removed
+
+- removed development tools from the repo
+
 ## [0.3.0][] - 2018-10-25
 
 ### Changed
