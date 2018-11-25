@@ -1,8 +1,0 @@
-{{ if ne .Site.Params.show_menu false }}
-  <nav itemscope itemtype="http://schema.org/SiteNavigationElement">
-    {{ $currentNode := . }}
-    {{ range .Site.Menus.main }}
-      <a itemprop="url" class="{{if or ($currentNode.IsMenuCurrent "main" .) ($currentNode.HasMenuCurrent "main" .) }}active{{end}}" href="{{ .URL }}"><span itemprop="name">{{ .Name }}</span></a>
-    {{ end }}
-  </nav>
-{{ end }}
