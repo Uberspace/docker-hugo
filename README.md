@@ -1,23 +1,39 @@
 # Hugo CMS
 
-This is the docker image for the homepage's CMS engine build on [Hugo][].
-
-It can build the static files for the homepage.
+This is an [Alpine][]  docker image with the [Hugo][] CMS installed.
 
 __VERSION__: `0.2.3`
 
 ## :children_crossing: Usage
 
-Run this image with your _input_ and _output_ paths mounted:
-
-- It runs over all input files mounted at `/input`.
-- And writes the results to whatever is mounted at `/output`.
+It's entry point is set to `/usr/local/bin/hugo`. If run, the default command
+will run under `root` from `/` over `/site` (input) to `/public` (output).
 
 ```shell
 docker run --rm \
-  --mount type=bind,source="$(pwd)/example/input",destination=/input \
-  --mount type=bind,source="$(pwd)/example/output",destination=/output \
+  --volume "$(pwd)/example/input":/site \
+  --volume "$(pwd)/example/output":/public \
   'registry.uberspace.is/uberspace/homepage/cms-engine'
+```
+
+Note: you can use `--user 1000:1000` or similar to preserve your file ownership.
+
+You could also use it in the CI for your project:
+
+```yaml
+hugo:
+	stage: build
+	image: registry.uberspace.is/uberspace/homepage/netlify:master
+```
+
+Or use your own entry point, if your file layout differs:
+
+```yaml
+hugo:
+	stage: build
+  image:
+    name: registry.uberspace.is/uberspace/homepage/netlify:master
+    entrypoint: /usr/local/bin/hugo  --source ./page --destination /var/www --minify"
 ```
 
 ## :bookmark: Release
