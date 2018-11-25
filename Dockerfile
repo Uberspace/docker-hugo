@@ -10,17 +10,5 @@ RUN set -ex \
 FROM alpine
 RUN apk add --update --no-cache ca-certificates
 COPY --from=build /tmp/hugo /usr/local/bin/
-RUN set -ex \
-    && addgroup -g 1000 hugo \
-    && adduser -u 1000 -G hugo -D hugo \
-    && mkdir /input /output \
-    && chown hugo:hugo /input /output
-USER hugo:hugo
-WORKDIR /home/hugo
-ENTRYPOINT [ \
-    "/usr/local/bin/hugo", \
-    "--source", "/input", \
-    "--destination", "/output", \
-    "--minify" \
-]
-CMD []
+ENTRYPOINT [ "/usr/local/bin/hugo" ]
+CMD [ "--source", "./site", "--destination", "../public", "--minify"]
