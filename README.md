@@ -16,7 +16,8 @@ docker run --rm \
   'registry.uberspace.is/uberspace/homepage/cms-engine'
 ```
 
-Note: you can use `--user 1000:1000` or similar to preserve your file ownership.
+Note: you can use `--user $(id -u):$(id -g)` — or similar — to preserve your
+file ownership.
 
 You could also use it in the CI for your project, similar to this:
 
