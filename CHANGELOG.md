@@ -7,11 +7,17 @@ and this project somewhat tries to adhere to [Semantic Versioning](https://semve
 
 ## [Unreleased]
 
+## [0.4] - 2018-12-09
+
+### Added
+
+- Use CI to build image.
+
 ### Removed
 
-- removed development tools from the repo
+- Removed development tools from the repo.
 
-## [0.3.0][] - 2018-10-25
+## [0.3] - 2018-10-25
 
 ### Changed
 
@@ -23,7 +29,7 @@ and this project somewhat tries to adhere to [Semantic Versioning](https://semve
 - Removed links from `/home/hugo/{input,output}` → `/{input,output}`
 - Removed `.gitlab-ci.yaml` for now.
 
-## [0.2.0][] - 2018-10-22
+## [0.2] - 2018-10-22
 
 ### Added
 
@@ -34,6 +40,7 @@ and this project somewhat tries to adhere to [Semantic Versioning](https://semve
 
 Initial version :tada:
 
-[Unreleased]: https://git.uberspace.is/uberspace/homepage/cms-engine/compare/v0.3.0...HEAD
-[0.3.0]: https://git.uberspace.is/uberspace/homepage/cms-engine/compare/v0.2.0...v0.3.0
-[0.2.0]: https://git.uberspace.is/uberspace/homepage/cms-engine/compare/v0.1.0...v0.2.0
+[Unreleased]: https://git.uberspace.is/uberspace/homepage/cms-engine/compare/v0.4.0...HEAD
+[0.4]: https://git.uberspace.is/uberspace/homepage/cms-engine/compare/v0.3.0...v0.4.0
+[0.3]: https://git.uberspace.is/uberspace/homepage/cms-engine/compare/v0.2.0...v0.3.0
+[0.2]: https://git.uberspace.is/uberspace/homepage/cms-engine/compare/v0.1.0...v0.2.0

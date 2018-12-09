@@ -34,7 +34,9 @@ hugo:
     stage: build
     image:
         name: registry.uberspace.is/uberspace/homepage/netlify:master
-        entrypoint: /usr/local/bin/hugo --source page --destination /var/www --minify
+        entrypoint: [""]
+    script:
+        - /usr/local/bin/hugo --source page --destination /var/www --minify
 ```
 
 ## :bookmark: Release

@@ -1,0 +1,22 @@
+---
+
+variables:
+  HUGO_VERSION: '0.49.2'
+  IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+
+deploy-image:
+  stage: deploy
+  tags:
+    - cloud
+  image: docker:stable
+  services:
+    - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_DRIVER: overlay2
+  before_script:
+    - docker info
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+  script:
+    - docker build --tag $IMAGE_TAG --build-arg HUGO_VERSION=$HUGO_VERSION .
+    - docker push $IMAGE_TAG
