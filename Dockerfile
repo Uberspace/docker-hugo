@@ -9,7 +9,7 @@ RUN set -ex \
     && ./hugo version
 
 FROM alpine
-RUN apk add --update --no-cache ca-certificates
+RUN apk add --update --no-cache ca-certificates git
 COPY --from=build /tmp/hugo /usr/local/bin/
 ENTRYPOINT [ "/usr/local/bin/hugo" ]
 CMD [ "--source", "./site", "--destination", "../public", "--minify"]
