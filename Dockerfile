@@ -1,10 +1,11 @@
 FROM alpine AS build
-ARG HUGO_VERSION=0.49.2
+ARG HUGO_VERSION=0.54.0
 RUN apk add --no-cache curl
 WORKDIR /tmp
 RUN set -ex \
-    && url="https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz" \
-    && curl --location "$url" | tar --extract --gzip \
+    && base_url='https://github.com/gohugoio/hugo/releases/download' \
+    && path="v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz" \
+    && curl --location "$base_url/$path" | tar --extract --gzip \
     && ./hugo version
 
 FROM alpine
