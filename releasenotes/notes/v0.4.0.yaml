@@ -1,0 +1,7 @@
+---
+added:
+  - Use *Gitalab CI* to build the image.
+removed:
+  - Removed *development tools* from the repo.
+
+
