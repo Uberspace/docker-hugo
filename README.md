@@ -2,7 +2,7 @@
 
 This is an [Alpine][] Docker image with the [Hugo][] CMS binary installed.
 
-__VERSION__: `0.4.0`
+__VERSION__: `0.5.0`
 
 ## :children_crossing: Usage
 
