@@ -2,6 +2,37 @@
 Changelog
 =========
 
+.. _Changelog_v0.5.0:
+
+v0.5.0
+======
+
+.. _Changelog_v0.5.0_Added Features:
+
+Added Features
+--------------
+
+- Support for configuration directories by *Hugo*.
+
+- Added ``git`` to the image, to support *git* stats in *Hugo*.
+
+
+.. _Changelog_v0.5.0_Changes:
+
+Changes
+-------
+
+- Generate CHANGELOG with ``reno``.
+
+
+.. _Changelog_v0.5.0_Updates:
+
+Updates
+-------
+
+- Update *HUGO* to ``0.54.0`` (new defaut version too).
+
+
 .. _Changelog_v0.4.0:
 
 v0.4.0
