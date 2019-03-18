@@ -1,0 +1,3 @@
+---
+added:
+  - Added ``pipenv`` configuration for *development tools* (``bumpversion`` and ``reno``).
