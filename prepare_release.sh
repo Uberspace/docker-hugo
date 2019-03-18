@@ -1,14 +1,16 @@
-#!/bin/sh
+#!/bin/bash
 
 main() {
+	local PART VERSION
+
 	# set the part of the version to bump (e.g. major, minor, patch)
-	local PART="${1:-patch}"
+	PART="${1:-patch}"
 	echo "Updateing '$PART' version…"
 
 	# get next version
-	local VERSION=$(
-		pipenv run bumpversion --dry-run --verbose "$PART" 2>&1 |
-			awk '/^Would tag /{print $3}'
+	VERSION=$(
+		pipenv run bumpversion --dry-run --verbose "$PART" 2>&1 \
+			| awk '/^Would tag /{print $3}'
 	)
 	if [ -z "$VERSION" ]; then
 		echo "[ERROR] no version found"
@@ -24,6 +26,7 @@ main() {
 	pipenv run reno report --no-show-source --title Changelog --output CHANGELOG.rst
 	# remove the tag, we want to include the changes
 	git tag -d "$VERSION"
+	# commit changelog
 	git add CHANGELOG.rst
 	git commit -m ":memo: update CHANGELOG for '$VERSION'"
 
