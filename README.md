@@ -2,7 +2,7 @@
 
 This is an [Alpine][] Docker image with the [Hugo][] CMS binary installed.
 
-**VERSION**: `0.5.0`
+**VERSION**: `0.5.1`
 
 The Docker tag `latest` always points to the newest image available. To select a
 given version of _hugo_, use desired version number as tag, e.g. `0.54.0`.
