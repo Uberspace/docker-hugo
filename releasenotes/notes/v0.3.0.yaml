@@ -1,0 +1,11 @@
+---
+changed:
+  - Container runs as ``root`` from ``/`` over ``/site`` to ``/public``.
+updated:
+  - Update *development tools*.
+removed:
+  - Removed links from ``/home/hugo/{input,output}`` → ``/{input,output}``.
+  - Removed ``.gitlab-ci.yaml`` for now.
+issues:
+  - Disabled *Gitlab CI* beacause of missing Docker runners.
+
