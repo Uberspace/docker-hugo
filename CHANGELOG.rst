@@ -2,6 +2,35 @@
 Changelog
 =========
 
+.. _Changelog_v0.5.1:
+
+v0.5.1
+======
+
+.. _Changelog_v0.5.1_Added Features:
+
+Added Features
+--------------
+
+- Added ``pipenv`` configuration for *development tools* (``bumpversion`` and ``reno``).
+
+
+.. _Changelog_v0.5.1_Updates:
+
+Updates
+-------
+
+- We now document the available *Docker tags* in the README.
+
+
+.. _Changelog_v0.5.1_Fixes:
+
+Fixes
+-----
+
+- Fixed the repo URL in the CI example in the README.
+
+
 .. _Changelog_v0.5.0:
 
 v0.5.0
@@ -46,7 +75,20 @@ Added Features
 - Use *Gitalab CI* to build the image.
 
 
-.. _Changelog_v0.4.0_Changes:
+.. _Changelog_v0.4.0_Removed:
+
+Removed
+-------
+
+- Removed *development tools* from the repo.
+
+
+.. _Changelog_v0.3.0:
+
+v0.3.0
+======
+
+.. _Changelog_v0.3.0_Changes:
 
 Changes
 -------
@@ -54,7 +96,7 @@ Changes
 - Container runs as ``root`` from ``/`` over ``/site`` to ``/public``.
 
 
-.. _Changelog_v0.4.0_Updates:
+.. _Changelog_v0.3.0_Updates:
 
 Updates
 -------
@@ -62,7 +104,7 @@ Updates
 - Update *development tools*.
 
 
-.. _Changelog_v0.4.0_Removed:
+.. _Changelog_v0.3.0_Removed:
 
 Removed
 -------
@@ -71,10 +113,8 @@ Removed
 
 - Removed ``.gitlab-ci.yaml`` for now.
 
-- Removed *development tools* from the repo.
 
-
-.. _Changelog_v0.4.0_Known Issues:
+.. _Changelog_v0.3.0_Known Issues:
 
 Known Issues
 ------------
