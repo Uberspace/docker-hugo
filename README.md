@@ -1,8 +1,8 @@
 # Hugo CMS
 
-This is an [Alpine][] Docker image with the [Hugo][] CMS binary installed.
-
 **VERSION**: `0.5.1`
+
+This is an [Alpine][] Docker image with the [Hugo][] CMS binary installed.
 
 The Docker tag `latest` always points to the newest image available. To select a
 given version of _hugo_, use desired version number as tag, e.g. `0.54.0`.
@@ -50,13 +50,26 @@ hugo:
 
 ## :bookmark: Release
 
-If you're ready to release a new version, please run:
+If you're ready to release a new version, please…
 
-1. `pipenv sync` to setup the needed environment,
-2. ensure a clean repo (everything merged, release notes ready…)
-3. run `./prepare_release.sh` to create the _CHANGELOG_, _bump the version_
-   and tag the commits.
-4. run `git push` and `git push --tags`.
+1.  ensure a clean repo (everything merged, release notes ready…),
+
+2.  run the `release` task, from the `release-tools` Docker image to create the
+    _CHANGELOG_, _bump the version_ and tag the commits:
+
+	```shell
+	docker run --rm \
+		-v "$(pwd)":/usr/local/src \
+		--user "--user $(id -u):$(id -g)" \
+		registry.uberspace.is/uberspace/homepage/release-tools release
+	```
+
+3.  and run `git push` and `git push --tags`.
+
+## :rocket: Deployment
+
+The _Gitlab CI_ builds new images from pushes to the _master_ branch.
+
 
 [alpine]: https://hub.docker.com/_/alpine/
 [hugo]: https://gohugo.io
