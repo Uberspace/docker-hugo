@@ -1,0 +1,8 @@
+---
+summary: >
+  This image is now on
+  `Docker Hub <https://hub.docker.com/r/uberspace/hugo>`_ as
+  ``uberspace/hugo``.
+changed:
+  - 📦 Moved the repo from internal GitLab to ``uberspace/release-tools``.
+  - 📦 The internal GitLab version now only mirrors the GitHub repo.
