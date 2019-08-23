@@ -1,5 +1,5 @@
 FROM alpine AS build
-ARG HUGO_VERSION=0.54.0
+ARG HUGO_VERSION=0.57.2
 RUN apk add --no-cache curl
 WORKDIR /tmp
 RUN set -ex \
