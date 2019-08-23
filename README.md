@@ -1,6 +1,6 @@
 # Hugo CMS
 
-**VERSION**: `0.5.2`
+**VERSION**: `0.6.0`
 
 This is an [Alpine][] Docker image with the [Hugo][] CMS binary installed.
 
