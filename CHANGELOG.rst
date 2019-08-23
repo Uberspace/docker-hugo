@@ -2,6 +2,45 @@
 CHANGELOG
 =========
 
+.. _CHANGELOG_v0.6.0:
+
+v0.6.0
+======
+
+.. _CHANGELOG_v0.6.0_Summary:
+
+Summary
+-------
+
+This image is now on `Docker Hub <https://hub.docker.com/r/uberspace/hugo>`_ as ``uberspace/hugo``.
+
+
+.. _CHANGELOG_v0.6.0_Changes:
+
+Changes
+-------
+
+- 📦 Moved the repo from internal GitLab to ``uberspace/release-tools``.
+
+- 📦 The internal GitLab version now only mirrors the GitHub repo.
+
+
+.. _CHANGELOG_v0.6.0_Updates:
+
+Updates
+-------
+
+- ⬆️ Update Hugo to ``v0.57.2``.
+
+
+.. _CHANGELOG_v0.6.0_Fixes:
+
+Fixes
+-----
+
+- 🚀 Add workaround for recent GitLab docker services - see this `Issue <https://cdn.knightlab.com/>`_ for more.
+
+
 .. _CHANGELOG_v0.5.2:
 
 v0.5.2
