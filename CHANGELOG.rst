@@ -2,6 +2,19 @@
 CHANGELOG
 =========
 
+.. _CHANGELOG_v0.6.1:
+
+v0.6.1
+======
+
+.. _CHANGELOG_v0.6.1_Changes:
+
+Changes
+-------
+
+- 🔧 Added default build options: ``--cleanDestinationDir``, ``--i18n-warnings``, ``--ignoreCache`` and ``--verbose``.
+
+
 .. _CHANGELOG_v0.6.0:
 
 v0.6.0
