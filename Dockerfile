@@ -1,12 +1,12 @@
 FROM alpine AS build
-ARG HUGO_VERSION=0.57.2
+ARG HUGO_VERSION=0.82.0
 RUN apk add --no-cache curl
 WORKDIR /tmp
 RUN set -ex \
-    && base_url='https://github.com/gohugoio/hugo/releases/download' \
-    && path="v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz" \
-    && curl --location "$base_url/$path" | tar --extract --gzip \
-    && ./hugo version
+	&& base_url='https://github.com/gohugoio/hugo/releases/download' \
+	&& path="v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz" \
+	&& curl --location "$base_url/$path" | tar --extract --gzip \
+	&& ./hugo version
 
 FROM alpine
 RUN apk add --update --no-cache ca-certificates git
@@ -20,4 +20,4 @@ CMD [ \
 	"--ignoreCache", \
 	"--minify", \
 	"--verbose" \
-]
+	]
