@@ -1,8 +1,0 @@
----
-added:
-  - Support for configuration directories by *Hugo*.
-  - Added ``git`` to the image, to support *git* stats in *Hugo*.
-changed:
-  - Generate CHANGELOG with ``reno``.
-updated:
-  - Update *HUGO* to ``0.54.0`` (new defaut version too).

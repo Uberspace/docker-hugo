@@ -1,3 +1,0 @@
----
-changed:
-  - "🔧 Added default build options: ``--cleanDestinationDir``, ``--i18n-warnings``, ``--ignoreCache`` and ``--verbose``."

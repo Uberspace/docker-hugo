@@ -1,4 +1,0 @@
----
-removed:
-  - We no longer use ``pipenv`` for tool dependencies, remove configs for that.
-  - Remove the shell script to prepare releases.

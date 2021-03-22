@@ -1,6 +1,0 @@
----
-summary: >
-  Switch from ``pipenv`` and a shell script to the `release-tools` Docker image
-  for handling release related things.
-changed:
-  - Docs on how to release.
